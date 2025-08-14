@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - BACKEND_PORT=${BACKEND_PORT}
+      - DB_PATH=/app/data/database.sqlite
+      - FRONTEND_ORIGIN=${FRONTEND_ORIGIN}
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    environment:
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+    restart: unless-stopped
