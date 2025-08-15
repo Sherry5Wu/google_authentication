@@ -12,9 +12,10 @@
 
   <div id="status"></div>
 
+  <!-- Load Google Identity Services -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
-    // GOOGLE_CLIENT_ID will be substituted by the entrypoint
+    // GOOGLE_CLIENT_ID will be replaced by the entrypoint script before serving
     const GOOGLE_CLIENT_ID = "${GOOGLE_CLIENT_ID}";
 
     function updateStatus(msg) {
@@ -45,8 +46,8 @@
     }
 
     window.onload = function () {
-      if (!GOOGLE_CLIENT_ID) {
-        updateStatus('GOOGLE_CLIENT_ID not configured. Set env var and restart container.');
+      if (!GOOGLE_CLIENT_ID || GOOGLE_CLIENT_ID.includes('${')) {
+        updateStatus('GOOGLE_CLIENT_ID not configured. Set it in .env and restart container.');
         return;
       }
 
@@ -55,5 +56,15 @@
         callback: handleCredentialResponse,
       });
 
-      // Render a button
+      // Render the button inside the "g_id_signin" div
       google.accounts.id.renderButton(
+        document.getElementById('g_id_signin'),
+        { theme: 'outline', size: 'large' }
+      );
+
+      // Optional: automatically show One Tap UI
+      google.accounts.id.prompt();
+    };
+  </script>
+</body>
+</html>

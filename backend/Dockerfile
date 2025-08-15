@@ -1,13 +1,12 @@
-FROM node:20-blueseye-slim
+FROM node:20-alpine
 
 WORKDIR /app
 
-# RUN apt-get update && apt-get install -y --no-install-recommends \
-#   ca-certificates \
-#   && rm -rf /var/lib/apt/lists/*
-
 COPY package.json* ./
-RUN npm ci --only=production
+RUN npm install --omit=dev
+
+# for checking the data from the Database inside the container
+RUN apk add --no-cache sqlite
 
 COPY . .
 

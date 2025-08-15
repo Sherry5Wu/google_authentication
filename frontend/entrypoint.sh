@@ -8,5 +8,5 @@ fi
 
 envsubst '${GOOGLE_CLIENT_ID}' < /usr/share/nginx/html/index.html.template > /usr/share/nginx/html/index.html
 
-# start nginx in foreground
+# start nginx in foreground to keep container running
 nginx -g 'daemon off;'

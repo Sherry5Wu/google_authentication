@@ -1,6 +1,20 @@
 # google_authoriation
 Practice google authortiation flows.<br>
 
+## How to run
+**1. Build and run the containers** (if you haven't installed docker yet, please intall docker first)
+```sh
+docker compose up --build
+```
+After the backend and frondend containers are built. Then you will see:
+![containers up](./images/contaniers%20up.png)
+
+**2. Visit `http://localhost:8080/` from your browser**
+![sign in page](./images/sign%20in%20page.png)
+
+**3. Click `Sign in with Google` button, then finish the process**
+![signed in](./images/signed%20in.png)
+
 ## High-level:
 - Frontend: static HTML + Google Identity Services JS. A sign-in button issues an ID token (JWT) which the frontend POSTs to backend.<br>
 
@@ -19,13 +33,15 @@ project/
 │     │  ├─ index.js
 │     │  └─ models/
 │     │     └─ user.js
-│     └─ README.md
+│     └─ BACKEND.md
 ├─ frontend/
+│  ├─ default.conf
 │  ├─ Dockerfile
 │  ├─ index.html.template
 │  └─ entrypoint.sh
 ├─ docker-compose.yml
 └─ .env
+└─ README.md
 
 ## Create a Google OAuth client ID
 1. Go to Google Cloud Console<br>
